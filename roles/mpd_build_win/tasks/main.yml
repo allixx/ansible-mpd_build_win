@@ -1,0 +1,84 @@
+---
+
+- name: Assert OS version
+  assert:
+    that: ansible_facts.lsb.description == "Ubuntu 22.04 LTS"
+    fail_msg: This role is tested against Ubuntu 22.04 only
+    quiet: true
+
+- name: Install system packages
+  package:
+    name: "{{ mpd_build_win_host_packages }}"
+    state: latest
+
+- name: Create virtualenv
+  pip:
+    name:
+      - pip
+      - setuptools
+    state: latest
+    virtualenv: "{{ mpd_build_win_venv_dir }}"
+
+- name: Intall virtualenv packages
+  pip:
+    name: "{{ mpd_build_win_venv_packages }}"
+    state: latest
+    virtualenv: "{{ mpd_build_win_venv_dir }}"
+
+- name: Ensure mpd repo dir exist
+  file:
+    path: "{{ mpd_build_win_repo_dir }}"
+    state: directory
+
+- name: Mount tmpfs over mpd repo dir
+  mount:
+    fstype: tmpfs
+    path: "{{ mpd_build_win_repo_dir }}"
+    src: none
+    opts: "{{ mpd_build_tmpfs_opts }}"
+    state: mounted
+  when: mpd_build_tmpfs_opts is defined
+
+- name: Clone mpd repo
+  git:
+    repo: "{{ mpd_build_win_repo }}"
+    dest: "{{ mpd_build_win_repo_dir }}"
+    version: "{{ mpd_build_win_repo_version }}"
+    force: true
+
+- name: Customize build.py's enabled 3rd party libs list
+  blockinfile:
+    path: "{{ mpd_build_win_build_py_file }}"
+    backup: true
+    insertbefore: build the third-party libraries
+    block: thirdparty_libs = {{ mpd_build_win_libs | to_yaml }}
+  when: mpd_build_win_libs | default(false)
+
+- name: Ensure mpd build dir is empty
+  file:
+    path: "{{ mpd_build_win_output_dir }}"
+    state: absent
+
+- name: Ensure mpd build dir is present
+  file:
+    path: "{{ mpd_build_win_output_dir }}"
+    state: directory
+
+- name: Build mpd
+  shell:
+    cmd: |
+      source {{ mpd_build_win_venv_dir }}/bin/activate
+
+      ../../win32/build.py {{ mpd_build_win_args }}
+    chdir: "{{ mpd_build_win_output_dir }}"
+    executable: /bin/bash
+
+- name: Strip mpd executable
+  command:
+    cmd: strip "{{ mpd_build_win_built_mpd_file }}"
+
+- name: Fetch built mpd executable
+  fetch:
+    src: "{{ mpd_build_win_built_mpd_file }}"
+    dest: /tmp/
+    flat: true

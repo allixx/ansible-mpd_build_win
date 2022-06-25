@@ -1,0 +1,51 @@
+---
+
+mpd_build_win_repo: https://github.com/MusicPlayerDaemon/MPD.git
+# https://github.com/MusicPlayerDaemon/MPD/releases/tag/v0.23.7
+mpd_build_win_repo_version: 0341ca1b6a134315869cf25f15d4bd5caabeba61
+
+mpd_build_win_repo_dir: ~/mpd
+
+# list of 3rd party libs to include in mpd build
+mpd_build_win_libs: []
+#  - libmpdclient
+#  - libogg
+#  - opus
+#  - flac
+#  - zlib
+#  - libid3tag
+#  - liblame
+#  - libmodplug
+#  - libopenmpt
+#  - wildmidi
+#  - gme
+#  - ffmpeg
+#  - curl
+#  - libnfs
+#  - jack
+#  - boost
+
+# build.py args
+mpd_build_win_args: --64 --buildtype=debugoptimized -Db_ndebug=true -Dwrap_mode=forcefallback
+
+# uncomment to mount tmpfs over mpd repo dir for significant build speed gains
+#mpd_build_tmpfs_opts: size=3G,noatime
+
+# system packages to install on build host
+mpd_build_win_host_packages:
+  - cmake
+  - git
+  - libtool-bin
+  - mingw-w64
+  - nasm
+  - ninja-build
+  - pkg-config
+  - python3-pip
+  - python3-setuptools
+  - python3-virtualenv
+  - quilt
+
+# mpd build system requires specific meson version
+mpd_build_win_venv_dir: ~/venv
+mpd_build_win_venv_packages:
+  - meson==0.56.0

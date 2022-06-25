@@ -1,0 +1,7 @@
+---
+
+mpd_build_win_output_dir: "{{ [mpd_build_win_repo_dir, 'output/win64'] | path_join }}"
+
+mpd_build_win_build_py_file: "{{ [mpd_build_win_repo_dir, 'win32/build.py'] | path_join }}"
+
+mpd_build_win_built_mpd_file: "{{ [mpd_build_win_output_dir,'mpd.exe'] | path_join }}"
