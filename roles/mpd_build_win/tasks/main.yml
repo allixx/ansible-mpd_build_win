@@ -44,6 +44,7 @@
     repo: "{{ mpd_build_win_repo }}"
     dest: "{{ mpd_build_win_repo_dir }}"
     version: "{{ mpd_build_win_repo_version }}"
+    depth: 1
     force: true
 
 - name: Customize build.py's enabled 3rd party libs list
