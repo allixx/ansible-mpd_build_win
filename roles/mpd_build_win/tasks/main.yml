@@ -2,7 +2,7 @@
 
 - name: Assert OS version
   assert:
-    that: ansible_facts.lsb.description == "Ubuntu 22.04 LTS"
+    that: '"Ubuntu 22.04" in ansible_facts.lsb.description'
     fail_msg: This role is tested against Ubuntu 22.04 only
     quiet: true
 
