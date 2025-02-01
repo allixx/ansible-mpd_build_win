@@ -1,1 +1,17 @@
 ---
+
+mpd_build_win_repo: https://github.com/allixx/MPD.git
+mpd_build_win_repo_version: soxr-libsamplerate-support
+
+mpd_build_win_libs:
+  - zlib
+  - ffmpeg
+  - boost
+  - libsamplerate
+  - soxr
+
+mpd_build_project_options:
+  snapcast: false
+  recorder: false
+
+mpd_build_tmpfs_opts: size=3G,noatime

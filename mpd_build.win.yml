@@ -4,3 +4,25 @@
   gather_facts: true
   roles:
     - mpd_build_win
+
+- hosts: target
+  gather_facts: false
+  tasks:
+    - name: Stop mpd service
+      command: net stop mpd
+
+    - name: Update mpd binary
+      copy:
+        src: /tmp/mpd.exe
+        dest: /cygdrive/c/Tools/mpd/mpd.exe
+
+    - name: Start mpd service
+      command: net start mpd
+
+- hosts: localhost
+  gather_facts: false
+  tasks:
+    - name: Clean up mpd binary
+      file:
+        path: /tmp/mpd.exe
+        state: absent
