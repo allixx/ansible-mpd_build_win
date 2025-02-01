@@ -1,26 +1,18 @@
 ---
 
 mpd_build_win_repo: https://github.com/MusicPlayerDaemon/MPD.git
-# https://github.com/MusicPlayerDaemon/MPD/releases/tag/v0.23.7
-mpd_build_win_repo_version: 0341ca1b6a134315869cf25f15d4bd5caabeba61
+mpd_build_win_repo_version: v0.23.17
 
 mpd_build_win_repo_dir: ~/mpd
 
 # list of 3rd party libs to include in mpd build
 mpd_build_win_libs: []
-#  - libmpdclient
-#  - libogg
-#  - opus
-#  - flac
 #  - zlib
-#  - libid3tag
-#  - liblame
 #  - libmodplug
 #  - libopenmpt
 #  - wildmidi
 #  - gme
 #  - ffmpeg
-#  - curl
 #  - libnfs
 #  - jack
 #  - boost
@@ -48,4 +40,4 @@ mpd_build_win_host_packages:
 # mpd build system requires specific meson version
 mpd_build_win_venv_dir: ~/venv
 mpd_build_win_venv_packages:
-  - meson==0.56.0
+  - meson==1.0.0
