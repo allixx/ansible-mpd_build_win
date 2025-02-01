@@ -70,9 +70,11 @@
     cmd: |
       source {{ mpd_build_win_venv_dir }}/bin/activate
 
-      ../../win32/build.py {{ mpd_build_win_args }}
+      ../../win32/build.py {{ mpd_build_win_args }} {{ project_options }}
     chdir: "{{ mpd_build_win_output_dir }}"
     executable: /bin/bash
+  vars:
+    project_options: "{{ mpd_build_project_options | dictsort | map('join', '=') | map('lower') | map('regex_replace', '^', '-D') | join(' ') }}"
 
 - name: Strip mpd executable
   command:

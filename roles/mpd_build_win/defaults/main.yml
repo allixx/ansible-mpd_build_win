@@ -17,6 +17,12 @@ mpd_build_win_libs: []
 #  - jack
 #  - boost
 
+# dict of meson project options
+# https://github.com/MusicPlayerDaemon/MPD/blob/v0.23.x/meson_options.txt
+mpd_build_project_options: {}
+#   option: true/false
+#   feature: enabled/disabled
+
 # build.py args
 mpd_build_win_args: --64 --buildtype=debugoptimized -Db_ndebug=true -Dwrap_mode=forcefallback
 
