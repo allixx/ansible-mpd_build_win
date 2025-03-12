@@ -1,7 +1,7 @@
 ---
 
 mpd_build_win_repo: https://github.com/MusicPlayerDaemon/MPD.git
-mpd_build_win_repo_version: v0.23.17
+mpd_build_win_repo_version: v0.24
 
 mpd_build_win_repo_dir: ~/mpd
 
@@ -14,8 +14,6 @@ mpd_build_win_libs: []
 #  - gme
 #  - ffmpeg
 #  - libnfs
-#  - jack
-#  - boost
 
 # dict of meson project options
 # https://github.com/MusicPlayerDaemon/MPD/blob/v0.23.x/meson_options.txt
