@@ -2,9 +2,11 @@
 
 - name: Assert OS version
   assert:
-    that: '"Ubuntu 22.04" in ansible_facts.lsb.description'
-    fail_msg: This role is tested against Ubuntu 22.04 only
+    that: '"{{ required_os }}" in ansible_facts.lsb.description'
+    fail_msg: This role is tested against {{ required_os }} only
     quiet: true
+  vars:
+    required_os: Ubuntu 24.04
 
 - name: Install system packages
   package:
