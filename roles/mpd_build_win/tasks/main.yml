@@ -55,7 +55,7 @@
     backup: true
     insertbefore: build the third-party libraries
     block: thirdparty_libs = {{ mpd_build_win_libs | to_yaml }}
-  when: mpd_build_win_libs | default(false)
+  when: mpd_build_win_libs | length > 0
 
 - name: Ensure mpd build dir is empty
   file:
