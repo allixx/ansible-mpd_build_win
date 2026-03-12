@@ -69,10 +69,11 @@
 
 - name: Build mpd
   shell:
+    executable: /usr/bin/bash
     cmd: |
+      set -o pipefail
       source {{ mpd_build_win_venv_dir }}/bin/activate
-
-      ../../win32/build.py {{ mpd_build_win_args }} {{ project_options }}
+      ../../win32/build.py {{ mpd_build_win_args }} {{ project_options }} 2>&1 | tee {{ mpd_build_win_output_dir }}/build.log
     chdir: "{{ mpd_build_win_output_dir }}"
     executable: /bin/bash
   vars:
