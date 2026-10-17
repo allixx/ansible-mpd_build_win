@@ -49,9 +49,9 @@
     depth: 1
     force: true
 
-- name: Customize build.py's enabled 3rd party libs list
+- name: Customize configure.py's enabled 3rd party libs list
   blockinfile:
-    path: "{{ mpd_build_win_build_py_file }}"
+    path: "{{ mpd_build_win_configure_py_file }}"
     backup: true
     insertbefore: build the third-party libraries
     block: thirdparty_libs = {{ mpd_build_win_libs | to_yaml }}
